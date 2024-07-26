@@ -1,0 +1,11 @@
+
+@media(max-width: 767px) {
+    .time-selext-btn {
+        flex-direction: column;
+        align-items: center;
+    }
+    .time-selext-btn > div {
+        text-align: center;
+        width: 100%;
+    }
+}

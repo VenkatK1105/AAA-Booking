@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Poppins, system-ui, 'Open Sans', Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+	--color-1: #050708;
+	--color-2: #FFFFFF;
+	--color-3: #056839; 
+	--color-4: #fad538;
+	--color-5: #f26622;
+	--color-6: #f7941d;
+	--color-7: #8db154;
+	--bg-0: #FFFFFF;
+	--bg-1: #8db154;
+	--bg-2: #f26622;
+	--bg-3: #f7f8f9;
+	--bg-4: #056839;
+	--button-bg-primary: #f26622;
+	--button-bg-secondary: #056839;
+	--shadow-sticky: 0 12px 10px -10px rgba(0, 0, 0, 0.12);
+	--default-shadow: 4px 4px 8px 0px #0000001A;
+	--site-primary-font: 'Open Sans';
+	--site-secondary-font: 'Poppins';
+}
+
+body {
+  margin: 0;
+  line-height: inherit;
+  overflow: hidden;
+  overflow-y: auto;
+  color: #050708;
+  font-family: var(--primary-font-family);
+}
+#booking-page-root {
+  height: 100%;
+}
+.max-w-container {
+  max-width: 85rem;
+}
+.max-w-screen-sm {
+  max-width: 640px;
+}
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+h2 {
+  font-family: var(--site-secondary-font);
+  font-size: 38px;
+  font-weight: 600;
+  line-height: 52px;
+  letter-spacing: -0.03em;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+.before-border-image {
+  position: relative;
+}
+.before-border-image:before {
+  background-image: var(--bg-image-url);
+}
+.custom-password-field > div {
+  width: 100%;
+}
+.custom-password-field input.p-password-input {
+  border: unset;
+  width: 100%;
+  outline: unset;
+  box-shadow: unset;
+}
+.pac-container {
+  z-index: 9999;
+}
+.p-checkbox {
+  width: 35px;
+  height: 35px;
+}
+.p-checkbox-box {
+  width: 35px;
+  height: 35px;
+  border: 1px solid #A2B9CF;
+  background-color: #F4F7FF;
+}
+.p-checkbox.p-variant-filled.p-highlight .p-checkbox-box {
+  background: #024FA3;
+  ;
+}

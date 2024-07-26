@@ -1,0 +1,157 @@
+.custom-c-calendar {
+    width: 100%!important;
+    box-shadow: none!important;
+    padding: 15px;
+    border: 1px solid #A2B9CF;
+}
+.custom-c-calendar .rmdp-calendar {
+    width: 100%;
+}
+.custom-c-calendar .rmdp-top-class {
+    width: 100%
+}
+.custom-c-calendar .rmdp-header {
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 1rem
+}
+.custom-c-calendar .rmdp-arrow-container {
+    margin: 0
+}
+.custom-c-calendar .rmdp-arrow-container.disabled {
+    display: none
+}
+
+.custom-c-calendar .rmdp-arrow-container:hover {
+    background-color: #024FA3;
+    box-shadow: none
+}
+.custom-c-calendar .rmdp-arrow {
+    border-color: #2e2e2e;
+    margin-top: 6px;
+}
+
+.custom-c-calendar .rmdp-header-values {
+    font-weight: 700;
+    font-size: 16px;
+    color: #374c6c
+}
+
+.custom-c-calendar .rmdp-week {
+    gap: 1rem
+}
+
+.custom-c-calendar .rmdp-week-day {
+    color: #85878c;
+    font-weight: 700;
+    font-size: .875rem;
+    width: 25px;
+    height: 41px
+}
+
+.custom-c-calendar .rmdp-day {
+    color: #2e2e2e;
+    width: 25px;
+    height: 41px
+}
+
+.custom-c-calendar .rmdp-day.rmdp-disabled span {
+    color: #ccd0d5;
+    text-decoration: line-through
+}
+
+.custom-c-calendar .rmdp-day.rmdp-today span {
+    background-color: transparent;
+    color: #65a3e1;
+    font-weight: 700
+}
+
+.custom-c-calendar .rmdp-day-picker {
+    padding: 0
+}
+
+.custom-c-calendar .rmdp-day-picker>div {
+    width: 100%
+}
+
+.custom-c-calendar .rmdp-day-picker>:first-child:not(:last-child) {
+    margin-right: 2.5rem!important
+}
+.custom-c-calendar .rmdp-day-picker .rmdp-day.rmdp-selected {
+    position: relative
+}
+.custom-c-calendar .rmdp-day-picker .rmdp-day.rmdp-selected:before {
+    position: absolute;
+    left: -5px;
+    top: 2px;
+    content: "";
+    width: 36px;
+    height: 36px;
+    border-radius: 18px;
+    background-color: #024FA3
+}
+.custom-c-calendar .rmdp-day-picker .rmdp-day.rmdp-selected span:not(.highlight) {
+    background-color: transparent;
+    box-shadow: none
+}
+
+.custom-c-calendar .rmdp-day-picker .rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) span:hover {
+    background-color: transparent
+}
+
+.custom-c-calendar .rmdp-day-picker .rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden):hover:not(:focus) {
+    position: relative;
+    color: #024FA3;
+}
+
+.custom-c-calendar .rmdp-day-picker .rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden):hover:not(:focus) span {
+    color: #024FA3;
+}
+
+.custom-c-calendar .rmdp-day-picker .rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden):hover:not(:focus):before {
+    position: absolute;
+    left: -5px;
+    top: 2px;
+    content: "";
+    width: 36px;
+    height: 36px;
+    border-radius: 18px;
+    background-color: #F4F7FF;
+}
+
+.custom-c-calendar .rmdp-month-picker .rmdp-day.rmdp-selected span:not(.highlight),.custom-c-calendar .rmdp-year-picker .rmdp-day.rmdp-selected span:not(.highlight) {
+    background-color: #024FA3;
+    box-shadow: none
+}
+
+.custom-c-calendar .rmdp-month-picker .rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) span:hover,.custom-c-calendar .rmdp-year-picker .rmdp-day:not(.rmdp-disabled):not(.rmdp-day-hidden) span:hover {
+    background-color: #F4F7FF;
+}
+
+#hubspot-messages-iframe-container.hschat-bemoved-movespace-dashboard,#hubspot-messages-iframe-container.hschat-bemoved-movespace-page {
+    z-index: 21!important
+}
+
+#hubspot-messages-iframe-container.hschat-bemoved-movespace-wizard:has(:not(div.active)) {
+    z-index: 21!important;
+    bottom: 80px!important
+}
+
+#hubspot-messages-iframe-container.hschat-bemoved-movespace-wizard:has(div.active) {
+    z-index: 21!important;
+    bottom: 0!important
+}
+
+#hubspot-messages-iframe-container.hschat-bemoved-booking-invoice:has(:not(div.active)) {
+    z-index: 21!important;
+    bottom: 80px!important
+}
+
+#hubspot-messages-iframe-container.hschat-bemoved-booking-invoice:has(div.active) {
+    z-index: 21!important;
+    bottom: 0!important
+}
+
+.bemoved-testimonials .rfm-marquee,.bemoved-testimonials .rfm-marquee .rfm-initial-child-container {
+    align-items: stretch
+}

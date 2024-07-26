@@ -1,0 +1,26 @@
+.step-progress-bar {
+    @apply flex p-0 gap-[3px] max-w-[400px] list-none;
+}
+
+.step-progress-bar li {
+    @apply w-full text-center relative cursor-pointer h-[6px] bg-[#0C2963];
+    transition: background-color 0.5s;
+}
+
+.step-progress-bar li.completed {
+    @apply bg-[#00ADEF] text-white;
+}
+
+.step-progress-bar li.active {
+    @apply bg-[#00ADEF] text-white;
+}
+
+.step-progress-bar li:first-child {
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+}
+
+.step-progress-bar li:last-child {
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+}

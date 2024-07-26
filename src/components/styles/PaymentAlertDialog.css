@@ -1,0 +1,6 @@
+.custom-alert-dialog {
+    position: relative;
+}
+.custom-alert-dialog .p-dialog-header {
+    padding: 0;
+}

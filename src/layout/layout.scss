@@ -1,0 +1,13 @@
+.app-container {
+    @apply flex h-full;
+    &:before {
+      content: '';
+      height: 28%;
+      background-color: #024FA3;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+}
+  

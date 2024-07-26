@@ -1,0 +1,14 @@
+.custom-checkbox-group {
+    @apply flex flex-wrap gap-5
+}
+.custom-checkbox-button {
+    @apply flex items-center cursor-pointer rounded px-8 py-4 text-[#000];
+    border: 2px solid #d2d2d2;
+    transition: border-color 0.3s;
+}
+.custom-checkbox-button input[type="checkbox"] {
+    display: none;
+}
+.custom-checkbox-button:has(input[type="checkbox"]:checked) {
+    border-color: #f66c47;
+}   
