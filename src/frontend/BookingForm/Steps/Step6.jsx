@@ -4,7 +4,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import titleBorder from "../../../assets/title-bar-top.svg";
 import PricingCard from "../../../components/PricingCard";
-import { allPlans } from "../../../assets/utils";
 import loadingTruck from "../../../assets/oading-truck.png";
 import FormButtonNavigator from "../../../components/FormButtonNavidator";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,24 +15,31 @@ import {
 } from "../../../redux/features/stepSlice";
 import { useNavigate } from "react-router-dom";
 import { fetchPreviewBooking } from "../../../services/bookingServices";
+import useHouseCalculation from "../../../hooks/useHouseCalculation";
+import { BsExclamationCircle } from "react-icons/bs";
 
 const Step6 = ({ handleShowsBreakDown }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const op = useRef(null);
+
+  const { appData } = useSelector((state) => state.theme);
   const { step, formData, loading, error } = useSelector(
     (state) => state.steps
   );
 
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-
-  const [plans, setAllPlans] = useState(allPlans || []);
+  const [plans, setAllPlans] = useState([]);
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [breakDown, setBreakDown] = useState({});
 
+  const { teamSize, truckSize, hours } = useHouseCalculation(
+    formData?.pickup_address?.bedroom
+  );
+
   useEffect(() => {
     dispatch(fetchPreviewBooking(formData));
-  }, [dispatch]);
+    setAllPlans(appData?.allPlans);
+  }, [dispatch, formData, appData]);
 
   const handlePrevious = () => {
     dispatch(previousStep());
@@ -44,7 +50,7 @@ const Step6 = ({ handleShowsBreakDown }) => {
   };
 
   const handleFormSubmit = () => {
-    //dispatch(updateFormData(data));
+    dispatch(updateFormData(formData));
     dispatch(nextStep());
   };
 
@@ -83,8 +89,8 @@ const Step6 = ({ handleShowsBreakDown }) => {
                 <div className="pl-2">
                   <ol className="relative list-none p-0">
                     <div className="pb-4">
-                      <li className="ml-6 text-center">
-                        <h3 className="font-normal text-[20px] text-[#024FA3] -translate-y-1 m-0 mb-3 text-center">
+                      <li className="text-center">
+                        <h3 className="font-normal text-[18px] sm:text-[20px] text-[#024FA3] -translate-y-1 m-0 mb-3 text-center">
                           {formData?.pickup_address?.address}
                         </h3>
                         <div className="text-[#2A2A2A] text-[14px]">
@@ -117,8 +123,8 @@ const Step6 = ({ handleShowsBreakDown }) => {
                         )}
                       </li>
                     </div>
-                    <li className="ml-6">
-                      <h3 className="font-normal text-[20px] text-[#024FA3] -translate-y-1 text-center">
+                    <li>
+                      <h3 className="font-normal text-[18px] sm:text-[20px] text-[#024FA3] -translate-y-1 text-center">
                         {formData?.delivery_address?.address}
                       </h3>
                     </li>
@@ -127,10 +133,10 @@ const Step6 = ({ handleShowsBreakDown }) => {
               </div>
             )}
             <div className="border-b border-neutralgrey-500 pb-3">
-              <h2 className="mb-6 font-medium text-xl md:2xl text-center text-[#2A2A2A]">
+              <h2 className="mb-6 font-medium text-xl sm:text-2xl md:text-3xl text-[#2A2A2A]">
                 We estimate your move will require
               </h2>
-              <div className="flex flex-row justify-center items-center gap-5">
+              <div className="flex mobile-flex-col sm:flex-row justify-center items-center gap-3 sm:gap-5">
                 <div className="flex items-center mx-2 gap-4">
                   <div className="flex flex-col items-center justify-center">
                     <svg
@@ -143,7 +149,7 @@ const Step6 = ({ handleShowsBreakDown }) => {
                     </svg>
                   </div>
                   <span className="text-[#024FA3] text-center text-sm sm:text-[15px]">
-                    2 man team
+                    {teamSize} man team
                   </span>
                 </div>
                 <div className="flex items-center mx-2 gap-4">
@@ -158,7 +164,7 @@ const Step6 = ({ handleShowsBreakDown }) => {
                     </svg>
                   </div>
                   <span className="text-[#024FA3] text-center text-sm sm:text-[15px]">
-                    4 Tonne truck
+                    {truckSize} truck
                   </span>
                 </div>
                 <div className="flex items-center mx-2 gap-4">
@@ -174,11 +180,11 @@ const Step6 = ({ handleShowsBreakDown }) => {
                   </div>
                   <div className="flex flex-row gap-1">
                     <span className="text-[#024FA3] text-center text-sm sm:text-[15px]">
-                      Approx 21 - 23 hours{" "}
-                      <i
-                        onClick={(e) => op.current.toggle(e)}
-                        className="pi pi-exclamation-circle relative top-1"
-                      ></i>
+                      Approx {hours} hours{" "}
+                      <span onClick={(e) => op.current.toggle(e)}
+                        className="relative top-1">
+                          <BsExclamationCircle />
+                        </span>
                     </span>
                   </div>
                 </div>
@@ -188,12 +194,12 @@ const Step6 = ({ handleShowsBreakDown }) => {
               <h2 className="font-medium text-2xl md:text-3xl text-navy-800 m-0">
                 Moving Plans
               </h2>
-              <p className="text-center">
+              <p className="text-center text-sm sm:text-base">
                 We recommend the <b>Regular Move</b> move as it's a reasonably
                 straight-forward move.
               </p>
 
-              <div className="grid w-full grid-cols-4 flex-row gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {plans.map((plan, index) => (
                   <PricingCard
                     key={index}
@@ -220,7 +226,7 @@ const Step6 = ({ handleShowsBreakDown }) => {
         handleSubmit={handleFormSubmit}
       />
       <OverlayPanel ref={op} showCloseIcon>
-        <div className="flex flex-col max-w-[345px]">
+        <div className="flex flex-col max-w-full sm:max-w-[345px]">
           <div className="text-left text-sm">
             <div className="flex flex-col text-sm">
               <p className="text-sm mb-1">

@@ -1,0 +1,10 @@
+.p-dropdown-item {
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    font-size: 15px;
+}
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight, .p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight.p-focus {
+    background: var(--color-7);
+    color: var(--color-4);
+}

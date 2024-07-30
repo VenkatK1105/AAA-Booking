@@ -16,8 +16,8 @@ const PricingCard = ({
 }) => {
   return (
     <div
-      className={`border-1 border-solid border-transparent rounded-lg shadow-lg flex flex-col ${
-        plan?.slug == "king_kong" ? "preferred-plan scale-[1.05]" : ""
+      className={`border-1 border-[#A2B9CF] border-solid border-transparent rounded-lg shadow-md flex flex-col ${
+        plan?.slug == "king_kong" ? "preferred-plan" : ""
       } items-center ${
         isSelected ? "selected scale-[1.05] border-[#f58021]" : ""
       }`}

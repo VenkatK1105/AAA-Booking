@@ -1,25 +1,39 @@
 /* eslint-disable no-unused-vars */
+import React, { Suspense, lazy } from "react";
 import { Navigate } from "react-router-dom";
 import Layout from "./layout/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
-import BookingForm from "./frontend/BookingForm/BookingForm";
-import Unauthorized from "./pages/Unauthorized";
 import { BookingFormProvider } from "./context/BookingFormContext";
-import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
+import CustomSpinner from "./components/CustomSpinner";
+const BookingForm = lazy(() => import("./frontend/BookingForm/BookingForm"));
+const Unauthorized = lazy(() => import("./pages/Unauthorized"));
+const Login = lazy(() => import("./pages/Login"));
+const SignUp = lazy(() => import("./pages/SignUp"));
 
 const routes = [
   {
     path: "login",
-    element: <Login />,
+    element: (
+      <Suspense fallback={<CustomSpinner />}>
+        <Login />
+      </Suspense>
+    ),
   },
   {
     path: "register",
-    element: <SignUp />,
+    element: (
+      <Suspense fallback={<CustomSpinner />}>
+        <SignUp />
+      </Suspense>
+    ),
   },
   {
     path: "unauthorized",
-    element: <Unauthorized />,
+    element: (
+      <Suspense fallback={<CustomSpinner />}>
+        <Unauthorized />
+      </Suspense>
+    ),
   },
   {
     path: "",
@@ -32,10 +46,12 @@ const routes = [
       {
         path: "",
         element: (
-          <BookingFormProvider>
-            <BookingForm />
-          </BookingFormProvider>
-        )
+          <Suspense fallback={<CustomSpinner />}>
+            <BookingFormProvider>
+              <BookingForm />
+            </BookingFormProvider>
+          </Suspense>
+        ),
       },
     ],
   },

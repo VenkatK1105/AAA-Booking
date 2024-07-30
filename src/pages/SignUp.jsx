@@ -302,7 +302,7 @@ const SignUp = () => {
                       />
                     </div>
                     <div className="flex relative flex-col w-[150px] text-right">
-                      <label className="absolute top-[-35px] text-right w-full">
+                      <label className="absolute top-[-35px] text-right w-full text-[15px] leading-6 font-['Open_Sans']">
                         Have an account?
                       </label>
                       <CustomButton

@@ -50,7 +50,7 @@ export const getGReviewData = async () => {
 
     if (response.status === 200) {
       const reviews = response.data.result.reviews;
-      console.log(reviews); // Process the reviews data here
+      console.log(reviews);
     } else {
       console.error(
         "Error fetching data:",

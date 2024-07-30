@@ -91,11 +91,11 @@ const Login = () => {
     return true;
   };
 
-  useEffect(() => {
-    if (user) {
-      navigate("/booking");
-    }
-  }, [user, navigate]);
+  // useEffect(() => {
+  //   // if (user) {
+  //     navigate("/");
+  //   // }
+  // }, [navigate]);
 
   return (
     <div className="app-container relative flex flex-col justify-between items-center bg-[#F4F7FF] h-full py-10 min-h-screen">
@@ -179,7 +179,7 @@ const Login = () => {
                         className="bg-[#FFF] border-[#A2B9CF] py-4 px-10 text-[#5B5B5B] hover:text-[#FFF] hover:bg-[#5B5B5B]"
                         type="button"
                         label="Back"
-                        onClick={() => navigate(-1)}
+                        onClick={() => navigate("/")}
                       />
                       <CustomButton
                         className="bg-[#F58021] border-[#F58021] py-4 px-8 hover:bg-white hover:text-[#F58021]"
@@ -190,7 +190,7 @@ const Login = () => {
                       />
                     </div>
                     <div className="flex relative flex-col w-[200px] text-right">
-                      <label className="absolute top-[-35px] text-right w-full">
+                      <label className="absolute top-[-35px] text-right w-full text-[15px] leading-6 font-['Open_Sans']">
                         Don't Have an account?
                       </label>
                       <CustomButton

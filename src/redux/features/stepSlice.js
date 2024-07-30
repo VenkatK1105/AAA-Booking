@@ -6,32 +6,32 @@ const initialState = {
   totalSteps: 9,
   formData: {
     booking_date: new Date(),
-    booking_time: null,
+    booking_time: "",
     pickup_address: {
-      address: null,
-      place_id: null,
+      address: "",
+      place_id: "",
       bedroom: 0,
       bathroom: 0,
       carspaces: 0,
-      property_type: null,
-      moving_situation: null,
+      property_type: "",
+      moving_situation: "",
       access_type: [],
       is_stair: false,
       flights: 0,
-      truck_distance: null
+      truck_distance: ""
     },
     delivery_address: {
-      address: null,
-      place_id: null,
+      address: "",
+      place_id: "",
       bedroom: 0,
       bathroom: 0,
       carspaces: 0,
-      property_type: null,
-      moving_situation: null,
+      property_type: "",
+      moving_situation: "",
       access_type: [],
       is_stair: false,
       flights: 0,
-      truck_distance: null
+      truck_distance: ""
     },
     furnished_type: "",
     is_oversized_furniture: false,
@@ -59,7 +59,7 @@ export const stepSlice = createSlice({
     },
     resetStep: (state) => {
       state.step = 1;
-      state.formData = {}
+      state.formData = initialState
     },
   },
   extraReducers: (builder) => {

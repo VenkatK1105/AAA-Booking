@@ -80,6 +80,7 @@ const BookingForm = () => {
               if (!visibleBreakDown) return;
               setVisibleBreakDown(false);
             }}
+            style={{ width: "40vw" }}
           >
             <div className="relative rounded-xl text-left transition-all w-full">
               <div className="flex flex-col flex-grow">

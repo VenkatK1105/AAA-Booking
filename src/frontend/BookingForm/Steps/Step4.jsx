@@ -178,7 +178,7 @@ const Step4 = () => {
 
               <div className="my-5">
                 <div className="mb-7">
-                  <h4 className="text-[21px] font-normal mt-0 text-center mb-0 leading-3">
+                  <h4 className="text-[21px] font-normal mt-0 text-center mb-0 leading-6 sm:leading-8">
                     Truck distance from the front door?
                   </h4>
                   <p className="text-center text-[14px]">

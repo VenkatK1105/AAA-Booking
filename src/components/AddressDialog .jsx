@@ -5,6 +5,7 @@ import { Dialog } from "primereact/dialog";
 import CounterTypeTwo from "./CounterTypeTwo";
 import CustomDropDown from "./CustomDropDown";
 import SearchAutoComplete from "./SearchAutoComplete";
+import "./styles/addressDialog.css"
 
 const AddressDialog = ({
   header,
@@ -33,10 +34,6 @@ const AddressDialog = ({
   const [errors, setErrors] = useState({});
 
   const addressRef = useRef(null);
-
-  useEffect(() => {
-
-  }, [])
 
   const validateForm = () => {
     let valid = true;
@@ -88,7 +85,7 @@ const AddressDialog = ({
   return (
     <Dialog
       visible={show}
-      style={{ width: "45vw" }}
+      style={{ width: "42vw" }}
       breakpoints={{ "960px": "75vw", "641px": "100vw" }}
       className="p-0"
       {...rest}
@@ -99,7 +96,7 @@ const AddressDialog = ({
           <div className="flex justify-end"></div>
           <h2 className="font-medium text-3xl md:text-4xl">{header}</h2>
         </div>
-        <div className="flex flex-col flex-grow">
+        <div className="flex flex-col flex-grow px-8">
           <div className="py-2 w-full">
             <div className="mb-6 w-full">
               <SearchAutoComplete
@@ -122,8 +119,7 @@ const AddressDialog = ({
                 />
               ))}
             </div>
-            <div className="grid sm:grid-cols-1 gap-2">
-              <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-2 relative">
                 <CustomDropDown
                   value={formField.property_type}
                   label="Property type"
@@ -132,15 +128,13 @@ const AddressDialog = ({
                   onChange={(e) =>
                     handleDropdownChange("property_type", e.value)
                   }
-                  className="w-full md:w-14rem"
+                  className="w-full"
                 />
-              </div>
               {errors.property_type && (
                 <span className="text-red-500 text-sm">
                   {errors.property_type}
                 </span>
               )}
-              <div className="flex flex-col gap-1">
                 <CustomDropDown
                   value={formField.moving_situation}
                   label="Moving situation"
@@ -149,9 +143,8 @@ const AddressDialog = ({
                   onChange={(e) =>
                     handleDropdownChange("moving_situation", e.value)
                   }
-                  className="w-full md:w-14rem"
+                  className="w-full"
                 />
-              </div>
               {errors.moving_situation && (
                 <span className="text-red-500 text-sm">
                   {errors.moving_situation}

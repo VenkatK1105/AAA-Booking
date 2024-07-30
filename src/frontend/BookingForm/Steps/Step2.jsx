@@ -5,11 +5,12 @@ import React, { useEffect, useState } from "react";
 import { IconField } from "primereact/iconfield";
 import { InputIcon } from "primereact/inputicon";
 import { InputText } from "primereact/inputtext";
-import { Dialog } from 'primereact/dialog';
-import titleBorder from "../../../assets/title-bar-top.svg?React";
+import { Dialog } from "primereact/dialog";
+import titleBorder from "../../../assets/title-bar-top.svg";
+import { PiLineVertical, PiEnvelopeSimpleThin } from "react-icons/pi";
 import { FaBed } from "react-icons/fa";
 import { PiBathtub } from "react-icons/pi";
-import { IoCarOutline } from "react-icons/io5";
+import { IoCarOutline, IoCallOutline } from "react-icons/io5";
 import FormButtonNavigator from "../../../components/FormButtonNavidator";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -18,7 +19,6 @@ import {
   updateFormData,
 } from "../../../redux/features/stepSlice";
 import AddressDialog from "../../../components/AddressDialog ";
-import { Image } from "primereact/image";
 import { useLoadScript } from "@react-google-maps/api";
 import { useCookies } from "react-cookie";
 const googleApiKey = import.meta.env.VITE_GOOGLE_MAP_API_SECRET;
@@ -143,7 +143,7 @@ const Step2 = () => {
     };
 
     checkDialogStatus();
-  }, [cookies.dialogTimestamp]);
+  }, [THREE_HOURS_MS, cookies.dialogTimestamp]);
 
   const hideDialog = () => {
     setDontFillingDialog(false);
@@ -189,241 +189,251 @@ const Step2 = () => {
 
   return (
     <>
-      <div className="form-container">
-        <div className="flex flex-grow justify-center px-4 overflow-x-hidden py-2 sm:py-10 bg-white h-full">
-          <div className="w-full py-8 sm:py-10 max-w-screen-sm opacity-100">
-            <div className="flex flex-col gap-2 mb-3">
-              <h2
-                style={{
-                  "--bg-image-url": `url(${titleBorder})`,
-                }}
-                className={`before-border-image text-center relative mt-3 before:content-[''] before:top-[-15px] before:block before:text-center before:relative before:w-[200px] before:h-[5px] before:my-0 before:mx-auto`}
-              >
-                Pick-up and delivery locations
-              </h2>
-            </div>
+      <div className="form-container p-4 sm:p-8 bg-white">
+        <div className="flex flex-col items-center gap-4 max-w-screen-sm mx-auto">
+          <div className="flex flex-col gap-2 mb-3">
+            <h2
+              style={{
+                "--bg-image-url": `url(${titleBorder})`,
+              }}
+              className={`text-center text-lg sm:text-xl font-bold mb-4 relative before:border-t before:border-gray-300 before:w-16 before:absolute before:top-[-10px] before:left-1/2 before:transform before:-translate-x-1/2`}
+            >
+              Pick-up and delivery locations
+            </h2>
+          </div>
+          <div className="flex flex-col gap-4 w-full">
             <div className="flex flex-col gap-4">
-              <div className="flex flex-col">
-                <p className="text-center sm:text-lg mb-4">Add Location</p>
-                <div className="flex flex-col gap-4 relative">
-                  {formData &&
-                    formData?.pickup_address &&
-                    formData?.pickup_address?.address <= 0 && (
-                      <div className="relative">
-                        <IconField
-                          iconPosition="left"
-                          className="w-full md:w-14rem"
-                        >
-                          <InputIcon className="leading-10 ml-2 mt-[-14px]">
-                            <svg
-                              width="30"
-                              height="30"
-                              viewBox="0 0 45 45"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="leading-9"
-                            >
-                              <path
-                                d="M39.375 39.375L31.2187 31.2187M20.625 15V26.25M15 20.625H26.25M35.625 20.625C35.625 28.9093 28.9093 35.625 20.625 35.625C12.3407 35.625 5.625 28.9093 5.625 20.625C5.625 12.3407 12.3407 5.625 20.625 5.625C28.9093 5.625 35.625 12.3407 35.625 20.625Z"
-                                stroke="#A2B9CF"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                          </InputIcon>
-                          <InputText
-                            name="pickup_address"
-                            value={pickupInput}
-                            onChange={(e) => {
-                              setPickupInput(e.target.value);
-                              fetchSuggestions(
-                                e.target.value,
-                                setPickupSuggestions
-                              );
-                            }}
-                            placeholder="Pick-up Address"
-                            className="w-full flex gap-4 text-[#A2B9CF] py-7 px-16 rounded-lg bg-white border-[1px] border-[#A2B9CF] hover:cursor-pointer"
-                          />
-                        </IconField>
-                        {pickupSuggestions.length > 0 &&
-                          renderSuggestions(
-                            pickupSuggestions,
-                            "pickup_address"
-                          )}
-                      </div>
-                    )}
-                  {formData &&
-                    formData.pickup_address &&
-                    formData.pickup_address.address &&
-                    formData.pickup_address.address.length > 0 && (
-                      <div
-                        onClick={() => setShowPickupDialog(true)}
-                        className="flex flex-col gap-1 px-4 py-2 border border-solid border-[#A2B9CF] rounded-lg hover:cursor-pointer"
+              <p className="text-center text-base mb-4">Add Location</p>
+              <div className="flex flex-col gap-4 relative">
+                {formData &&
+                  formData?.pickup_address &&
+                  formData?.pickup_address?.address === "" && (
+                    <div className="relative">
+                      <IconField
+                        iconPosition="left"
+                        className="w-full md:w-14rem"
                       >
-                        <div className="flex justify-between items-center">
-                          <label className="text-sm font-bold">
-                            Pickup address
-                          </label>
+                        <InputIcon className="leading-10 ml-2 mt-[-14px]">
                           <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
+                            width="30"
+                            height="30"
+                            viewBox="0 0 45 45"
                             fill="none"
-                            className="stroke-black w-4 h-4"
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="leading-9"
                           >
-                            <path d="M12 6.667 9.333 4M1.667 14.333l2.256-.25c.276-.03.413-.046.542-.088a1.33 1.33 0 0 0 .324-.155c.113-.075.21-.173.407-.37L14 4.668A1.886 1.886 0 1 0 11.333 2L2.53 10.804c-.196.196-.294.294-.368.407-.067.1-.119.21-.156.324-.042.129-.057.267-.088.542l-.25 2.256Z"></path>
+                            <path
+                              d="M39.375 39.375L31.2187 31.2187M20.625 15V26.25M15 20.625H26.25M35.625 20.625C35.625 28.9093 28.9093 35.625 20.625 35.625C12.3407 35.625 5.625 28.9093 5.625 20.625C5.625 12.3407 12.3407 5.625 20.625 5.625C28.9093 5.625 35.625 12.3407 35.625 20.625Z"
+                              stroke="#A2B9CF"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
                           </svg>
-                        </div>
-                        <span>{formData?.pickup_address?.address}</span>
-                        <ul className="flex gap-4 items-center p-0 m-0">
-                          <li className="flex items-center gap-1">
-                            <FaBed className="text-[16px] text-neutralgrey-700" color="#868C93"/>
-                            <span className="text-xs text-neutralgrey-700">
-                              {formData?.pickup_address?.bedroom}
-                            </span>
-                          </li>
-                          <li className="flex items-center gap-1">
-                            <PiBathtub className="text-[16px] text-neutralgrey-700" color="#868C93" />
-                            <span className="text-xs text-neutralgrey-700">
-                              {formData?.pickup_address?.bathroom}
-                            </span>
-                          </li>
-                          <li className="flex items-center gap-1">
-                          <IoCarOutline className="text-[16px] text-neutralgrey-700" color="#868C93" />
-                            <span className="text-xs text-neutralgrey-700">
-                              {formData?.pickup_address?.carspaces}
-                            </span>
-                          </li>
-                          <span className="text-xs text-neutralgrey-700">
-                            {formData?.pickup_address?.property_type?.name}
-                          </span>
-                        </ul>
-                      </div>
-                    )}
-                  {errors.pickupInput && (
-                    <span className="text-red-500 text-sm text-center">
-                      {errors.pickupInput}
-                    </span>
+                        </InputIcon>
+                        <InputText
+                          name="pickup_address"
+                          value={pickupInput}
+                          onChange={(e) => {
+                            setPickupInput(e.target.value);
+                            fetchSuggestions(
+                              e.target.value,
+                              setPickupSuggestions
+                            );
+                          }}
+                          placeholder="Pick-up Address"
+                          className="w-full flex gap-4 text-[#A2B9CF] py-7 px-16 rounded-lg bg-white border-[1px] border-[#A2B9CF] hover:cursor-pointer"
+                        />
+                      </IconField>
+                      {pickupSuggestions.length > 0 &&
+                        renderSuggestions(pickupSuggestions, "pickup_address")}
+                    </div>
                   )}
-                  <div className="flex justify-center">
-                    <i
-                      className="pi pi-ellipsis-v"
-                      style={{ fontSize: "1rem" }}
-                    ></i>
-                  </div>
-                  <div className="relative">
-                    {formData && formData?.delivery_address?.address <= 0 && (
-                      <div className="relative">
-                        <IconField
-                          iconPosition="left"
-                          className="w-full md:w-14rem"
+                {formData &&
+                  formData.pickup_address &&
+                  formData.pickup_address.address !== "" && (
+                    <div
+                      onClick={() => setShowPickupDialog(true)}
+                      className="flex flex-col gap-1 px-4 py-2 border border-solid border-[#A2B9CF] rounded-lg hover:cursor-pointer"
+                    >
+                      <div className="flex justify-between items-center">
+                        <label className="text-sm font-bold">
+                          Pickup address
+                        </label>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="none"
+                          className="stroke-black w-4 h-4"
                         >
-                          <InputIcon className="leading-10 ml-2 mt-[-14px]">
-                            <svg
-                              width="30"
-                              height="30"
-                              viewBox="0 0 45 45"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="leading-9"
-                            >
-                              <path
-                                d="M39.375 39.375L31.2187 31.2187M20.625 15V26.25M15 20.625H26.25M35.625 20.625C35.625 28.9093 28.9093 35.625 20.625 35.625C12.3407 35.625 5.625 28.9093 5.625 20.625C5.625 12.3407 12.3407 5.625 20.625 5.625C28.9093 5.625 35.625 12.3407 35.625 20.625Z"
-                                stroke="#A2B9CF"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                          </InputIcon>
-                          <InputText
-                            name="delivery_address"
-                            value={deliveryInput}
-                            placeholder="Delivery Address"
-                            onChange={(e) => {
-                              setDeliveryInput(e.target.value);
-                              fetchSuggestions(
-                                e.target.value,
-                                setDeliverySuggestions
-                              );
-                            }}
-                            className="w-full flex gap-4 text-[#A2B9CF] py-7 px-16 rounded-lg bg-white border-[1px] border-[#A2B9CF] hover:cursor-pointer"
+                          <path d="M12 6.667 9.333 4M1.667 14.333l2.256-.25c.276-.03.413-.046.542-.088a1.33 1.33 0 0 0 .324-.155c.113-.075.21-.173.407-.37L14 4.668A1.886 1.886 0 1 0 11.333 2L2.53 10.804c-.196.196-.294.294-.368.407-.067.1-.119.21-.156.324-.042.129-.057.267-.088.542l-.25 2.256Z"></path>
+                        </svg>
+                      </div>
+                      <span className="text-[15px] leading-6">
+                        {formData?.pickup_address?.address}
+                      </span>
+                      <ul className="flex gap-4 items-center p-0 m-0">
+                        <li className="flex items-center gap-1 m-0">
+                          <FaBed
+                            className="text-[16px] text-neutralgrey-700"
+                            color="#868C93"
                           />
-                        </IconField>
-                        {deliverySuggestions.length > 0 &&
-                          renderSuggestions(
-                            deliverySuggestions,
-                            "delivery_address"
-                          )}
-                      </div>
-                    )}
-                  </div>
-                  {formData &&
-                    formData.delivery_address &&
-                    formData.delivery_address.address &&
-                    formData.delivery_address.address.length > 0 && (
-                      <div
-                        onClick={() => setShowDeliveryDialog(true)}
-                        className="flex flex-col gap-1 px-4 py-2 border border-solid border-[#A2B9CF] rounded-lg hover:cursor-pointer"
-                      >
-                        <div className="flex justify-between items-center">
-                          <label className="text-sm font-bold">
-                            Pickup address
-                          </label>
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            fill="none"
-                            className="stroke-black w-4 h-4"
-                          >
-                            <path d="M12 6.667 9.333 4M1.667 14.333l2.256-.25c.276-.03.413-.046.542-.088a1.33 1.33 0 0 0 .324-.155c.113-.075.21-.173.407-.37L14 4.668A1.886 1.886 0 1 0 11.333 2L2.53 10.804c-.196.196-.294.294-.368.407-.067.1-.119.21-.156.324-.042.129-.057.267-.088.542l-.25 2.256Z"></path>
-                          </svg>
-                        </div>
-                        <span>{formData?.delivery_address?.address}</span>
-                        <ul className="flex gap-4 items-center p-0 m-0">
-                          <li className="flex items-center gap-1">
-                            <FaBed className="text-[16px] text-neutralgrey-700" color="#868C93"/>
-                            <span className="text-xs text-neutralgrey-700">
-                              {formData?.delivery_address?.bedroom}
-                            </span>
-                          </li>
-                          <li className="flex items-center gap-1">
-                          <PiBathtub className="text-[16px] text-neutralgrey-700" color="#868C93" />
-                            <span className="text-xs text-neutralgrey-700">
-                              {formData?.delivery_address?.bathroom}
-                            </span>
-                          </li>
-                          <li className="flex items-center gap-1">
-                           <IoCarOutline className="text-[16px] text-neutralgrey-700" color="#868C93" />
-                            <span className="text-xs text-neutralgrey-700">
-                              {formData?.delivery_address?.carspaces}
-                            </span>
-                          </li>
                           <span className="text-xs text-neutralgrey-700">
-                            {formData?.delivery_address?.property_type?.name}
+                            {formData?.pickup_address?.bedroom}
                           </span>
-                        </ul>
-                      </div>
-                    )}
-                </div>
+                        </li>
+                        <li className="flex items-center gap-1 m-0">
+                          <PiBathtub
+                            className="text-[16px] text-neutralgrey-700"
+                            color="#868C93"
+                          />
+                          <span className="text-xs text-neutralgrey-700">
+                            {formData?.pickup_address?.bathroom}
+                          </span>
+                        </li>
+                        <li className="flex items-center gap-1 m-0">
+                          <IoCarOutline
+                            className="text-[16px] text-neutralgrey-700"
+                            color="#868C93"
+                          />
+                          <span className="text-xs text-neutralgrey-700">
+                            {formData?.pickup_address?.carspaces}
+                          </span>
+                        </li>
+                        <span className="text-xs text-neutralgrey-700">
+                          {formData?.pickup_address?.property_type?.name}
+                        </span>
+                      </ul>
+                    </div>
+                  )}
                 {errors.pickupInput && (
                   <span className="text-red-500 text-sm text-center">
                     {errors.pickupInput}
                   </span>
                 )}
+                <div className="flex justify-center">
+                  <PiLineVertical />
+                </div>
+                {formData && formData?.delivery_address?.address === "" && (
+                  <div className="relative">
+                    <IconField
+                      iconPosition="left"
+                      className="w-full md:w-14rem"
+                    >
+                      <InputIcon className="leading-10 ml-2 mt-[-14px]">
+                        <svg
+                          width="30"
+                          height="30"
+                          viewBox="0 0 45 45"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="leading-9"
+                        >
+                          <path
+                            d="M39.375 39.375L31.2187 31.2187M20.625 15V26.25M15 20.625H26.25M35.625 20.625C35.625 28.9093 28.9093 35.625 20.625 35.625C12.3407 35.625 5.625 28.9093 5.625 20.625C5.625 12.3407 12.3407 5.625 20.625 5.625C28.9093 5.625 35.625 12.3407 35.625 20.625Z"
+                            stroke="#A2B9CF"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </InputIcon>
+                      <InputText
+                        name="delivery_address"
+                        value={deliveryInput}
+                        placeholder="Delivery Address"
+                        onChange={(e) => {
+                          setDeliveryInput(e.target.value);
+                          fetchSuggestions(
+                            e.target.value,
+                            setDeliverySuggestions
+                          );
+                        }}
+                        className="w-full flex gap-4 text-[#A2B9CF] py-7 px-16 rounded-lg bg-white border-[1px] border-[#A2B9CF] hover:cursor-pointer"
+                      />
+                    </IconField>
+                    {deliverySuggestions.length > 0 &&
+                      renderSuggestions(
+                        deliverySuggestions,
+                        "delivery_address"
+                      )}
+                  </div>
+                )}
+                {formData &&
+                  formData.delivery_address &&
+                  formData.delivery_address.address !== "" && (
+                    <div
+                      onClick={() => setShowDeliveryDialog(true)}
+                      className="flex flex-col gap-1 px-4 py-2 border border-solid border-[#A2B9CF] rounded-lg hover:cursor-pointer"
+                    >
+                      <div className="flex justify-between items-center">
+                        <label className="text-sm font-bold">
+                          Pickup address
+                        </label>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="none"
+                          className="stroke-black w-4 h-4"
+                        >
+                          <path d="M12 6.667 9.333 4M1.667 14.333l2.256-.25c.276-.03.413-.046.542-.088a1.33 1.33 0 0 0 .324-.155c.113-.075.21-.173.407-.37L14 4.668A1.886 1.886 0 1 0 11.333 2L2.53 10.804c-.196.196-.294.294-.368.407-.067.1-.119.21-.156.324-.042.129-.057.267-.088.542l-.25 2.256Z"></path>
+                        </svg>
+                      </div>
+                      <span className="text-[15px] leading-6">
+                        {formData?.delivery_address?.address}
+                      </span>
+                      <ul className="flex gap-4 items-center p-0 m-0">
+                        <li className="flex items-center gap-1 m-0">
+                          <FaBed
+                            className="text-[16px] text-neutralgrey-700"
+                            color="#868C93"
+                          />
+                          <span className="text-xs text-neutralgrey-700">
+                            {formData?.delivery_address?.bedroom}
+                          </span>
+                        </li>
+                        <li className="flex items-center gap-1 m-0">
+                          <PiBathtub
+                            className="text-[16px] text-neutralgrey-700"
+                            color="#868C93"
+                          />
+                          <span className="text-xs text-neutralgrey-700">
+                            {formData?.delivery_address?.bathroom}
+                          </span>
+                        </li>
+                        <li className="flex items-center gap-1 m-0">
+                          <IoCarOutline
+                            className="text-[16px] text-neutralgrey-700"
+                            color="#868C93"
+                          />
+                          <span className="text-xs text-neutralgrey-700">
+                            {formData?.delivery_address?.carspaces}
+                          </span>
+                        </li>
+                        <span className="text-xs text-neutralgrey-700">
+                          {formData?.delivery_address?.property_type?.name}
+                        </span>
+                      </ul>
+                    </div>
+                  )}
               </div>
+              {errors.pickupInput && (
+                <span className="text-red-500 text-sm text-center">
+                  {errors.pickupInput}
+                </span>
+              )}
             </div>
           </div>
         </div>
-        <FormButtonNavigator
-          step={step}
-          handlePrevious={handlePrevious}
-          handleSubmit={handleFormSubmit}
-          disabled={!isFormValid}
-        />
       </div>
+      <FormButtonNavigator
+        step={step}
+        handlePrevious={handlePrevious}
+        handleSubmit={handleFormSubmit}
+        disabled={!isFormValid}
+      />
       {showPickupDialog && (
         <AddressDialog
           header="Pickup address"
@@ -432,6 +442,7 @@ const Step2 = () => {
           addressInput={pickupInput}
           appData={appData}
           defaultValues={formField.pickup_address}
+          className="address-dialog-wrap"
           onHide={() => {
             if (!showPickupDialog) return;
             setShowPickupDialog(false);
@@ -447,6 +458,7 @@ const Step2 = () => {
           appData={appData}
           defaultValues={formField.delivery_address}
           googleApiKey={googleApiKey}
+          className="address-dialog-wrap"
           onHide={() => {
             if (!showDeliveryDialog) return;
             setShowDeliveryDialog(false);
@@ -460,12 +472,28 @@ const Step2 = () => {
           header="Don't like filling forms?"
           visible={dontFillingDialog}
           position="bottom-right"
-          style={{ width: "25vw" }}
           onHide={hideDialog}
+          className="filling-forms-wrap w-full sm:w-[380px]"
         >
-          <p className="m-0 mb-4">Call our friendly consultant to book your move immediately.</p>
-          <a href="tel:(02) 9737 1111" target="_top" className="block text-[#024FA3] text-[17px] leading-7 mb-1"><i className="pi pi-phone mr-1"></i>{" "}<span>(02) 9737 1111</span></a>
-          <a href="mailto:info@aaacityremovalist.com.au" className="block text-[#024FA3] text-[17px] leading-7" target="_top"><i className="pi pi-envelope mr-1"></i>{" "}info@aaacityremovalist.com.au</a>
+          <p className="m-0 mb-4">
+            Call our friendly consultant to book your move immediately.
+          </p>
+          <a
+            href="tel:(02) 9737 1111"
+            target="_top"
+            className="block text-[#024FA3] text-[17px] leading-7 mb-1"
+          >
+            <IoCallOutline className="mr-1 relative top-1 text-[21px]" />
+            <span>(02) 9737 1111</span>
+          </a>
+          <a
+            href="mailto:info@aaacityremovalist.com.au"
+            className="block text-[#024FA3] text-[17px] leading-7"
+            target="_top"
+          >
+            <PiEnvelopeSimpleThin className="mr-1 relative top-1 text-[21px]" />
+            info@aaacityremovalist.com.au
+          </a>
         </Dialog>
       )}
     </>

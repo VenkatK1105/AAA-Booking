@@ -2,13 +2,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable no-unused-vars */
-import React, {
-  useRef,
-  useEffect,
-  forwardRef,
-  useState,
-  useCallback,
-} from "react";
+import React, { forwardRef, useState, useCallback, useEffect } from "react";
 import { useJsApiLoader } from "@react-google-maps/api";
 import { IconField } from "primereact/iconfield";
 import { InputIcon } from "primereact/inputicon";
@@ -25,12 +19,6 @@ const SearchAutoComplete = forwardRef(
       googleMapsApiKey: googleApiKey,
       libraries,
     });
-
-    useEffect(() => {
-      if (addressInput) {
-        setInputValue(addressInput);
-      }
-    }, [addressInput]);
 
     const debounce = (func, wait) => {
       let timeout;
@@ -67,10 +55,18 @@ const SearchAutoComplete = forwardRef(
     );
 
     useEffect(() => {
-      if (isLoaded && window.google) {
-        fetchSuggestions(inputValue);
+      if (addressInput) {
+        setInputValue(addressInput);
       }
-    }, [inputValue, fetchSuggestions, isLoaded]);
+    }, []);
+
+    const handleInputChange = (e) => {
+      const value = e.target.value;
+      setInputValue(value);
+      if (isLoaded) {
+        fetchSuggestions(value);
+      }
+    };
 
     if (loadError) {
       return <div>Error loading Google Maps</div>;
@@ -111,10 +107,8 @@ const SearchAutoComplete = forwardRef(
             ref={inputRef}
             placeholder="Search"
             value={inputValue}
-            onChange={(e) => {
-              setInputValue(e.target.value);
-            }}
-            className="w-full flex gap-4 text-[#000] placeholder:text-[#000] py-4 px-14 rounded-lg bg-white border-[1px] border-[#A2B9CF]"
+            onChange={handleInputChange}
+            className="w-full flex gap-4 text-[16px] font-['Open_Sans'] leading-6 text-[#000] placeholder:text-[#000] py-4 px-14 rounded-lg bg-white border-[1px] border-[#A2B9CF]"
           />
         </IconField>
         {suggestions.length > 0 && (

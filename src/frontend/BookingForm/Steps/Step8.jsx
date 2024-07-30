@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import titleBorder from "../../../assets/title-bar-top.svg";
 import CustomButton from "../../../components/CustomButton";
 import { nextStep, previousStep } from "../../../redux/features/stepSlice";
@@ -10,10 +10,10 @@ import PaymentAlertDialog from "../../../components/PaymentAlertDialog";
 import useFormattedDate from "../../../hooks/useFormattedDate";
 
 const Step8 = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const dispatch = useDispatch();
   const { step, formData } = useSelector((state) => state.steps);
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  // const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const [paymentSuccessDialogVisible, setPaymentSuccessDialogVisible] =
     useState(false);
   const [paymentFailedDialogVisible, setPaymentFailedDialogVisible] =
@@ -34,15 +34,15 @@ const Step8 = () => {
     setPaymentFailedDialogVisible(true);
   };
 
-  useEffect(() => {
-    if (!isLoggedIn) {
-      navigate("/login");
-    }
-  }, [isLoggedIn, navigate]);
+  // useEffect(() => {
+  //   if (!isLoggedIn) {
+  //     navigate("/login");
+  //   }
+  // }, [isLoggedIn, navigate]);
 
   return (
     <div className="form-container">
-      <div className="flex flex-grow justify-center px-16 overflow-x-hidden py-2 sm:py-10 bg-white">
+      <div className="flex flex-grow justify-center px-6 sm:px-16 overflow-x-hidden py-2 sm:py-10 bg-white">
         <div className="w-full max-w-[1140px] py-8 sm:py-10 opacity-100">
           <div className="flex flex-col gap-2 mb-3">
             <h2
@@ -54,10 +54,10 @@ const Step8 = () => {
               Your booking summary
             </h2>
           </div>
-          <div className="flex lg:flex-row justify-between mb-6 gap-10">
-            <div className="space-y-4 md:w-2/3">
+          <div className="preview-col-wrap flex lg:flex-row justify-between mb-6 gap-10">
+            <div className="w-full lg:w-2/3 p-4 rounded-lg">
               <div className="summary-card-item">
-                <h2 className="text-xl font-semibold text-left">Moving Date</h2>
+                <h3 className="text-xl font-semibold text-left">Moving Date</h3>
                 <p>{useFormattedDate(formData?.booking_date)}</p>
                 {/* <pre>{JSON.stringify(formData, null, 2)}</pre> */}
                 <p>{formData?.booking_time}</p>
@@ -66,9 +66,9 @@ const Step8 = () => {
               <hr className="border-neutralgrey-500"></hr>
 
               <div className="summary-card-item">
-                <h2 className="text-xl font-semibold text-left">
+                <h3 className="text-xl font-semibold text-left">
                   Pick-Up Location
-                </h2>
+                </h3>
                 <p>{formData?.pickup_address?.address}</p>
                 <ul>
                   <li>{formData?.pickup_address?.bedroom} x bedrooms</li>
@@ -81,9 +81,9 @@ const Step8 = () => {
               <hr className="border-neutralgrey-500"></hr>
 
               <div className="summary-card-item">
-                <h2 className="text-xl font-semibold text-left">
+                <h3 className="text-xl font-semibold text-left">
                   Access Information
-                </h2>
+                </h3>
                 <ul>
                   {formData &&
                     formData?.pickup_address?.access_type.map((item, index) => (
@@ -95,9 +95,9 @@ const Step8 = () => {
               <hr className="border-neutralgrey-500"></hr>
 
               <div className="summary-card-item">
-                <h2 className="text-xl font-semibold text-left">
+                <h3 className="text-xl font-semibold text-left">
                   Truck Distance From The Front Door?
-                </h2>
+                </h3>
                 <ul>
                   <li>15-50m</li>
                 </ul>
@@ -106,9 +106,9 @@ const Step8 = () => {
               <hr className="border-neutralgrey-500"></hr>
 
               <div className="summary-card-item">
-                <h2 className="text-xl font-semibold text-left">
+                <h3 className="text-xl font-semibold text-left">
                   Delivery Address
-                </h2>
+                </h3>
                 <p>{formData?.delivery_address?.address}</p>
                 <ul>
                   <li>{formData?.delivery_address?.bedroom} x bedrooms</li>
@@ -121,9 +121,9 @@ const Step8 = () => {
               <hr className="border-neutralgrey-500"></hr>
 
               <div className="summary-card-item">
-                <h2 className="text-xl font-semibold text-left">
+                <h3 className="text-xl font-semibold text-left">
                   Access Information
-                </h2>
+                </h3>
                 <ul>
                   {formData &&
                     formData?.delivery_address?.access_type.map(
@@ -135,16 +135,16 @@ const Step8 = () => {
               <hr className="border-neutralgrey-500"></hr>
 
               <div className="summary-card-item">
-                <h2 className="text-xl font-semibold text-left">
+                <h3 className="text-xl font-semibold text-left">
                   Truck Distance From The Front Door?
-                </h2>
+                </h3>
                 <ul>
                   <li>15-50m</li>
                 </ul>
               </div>
 
               <div className="mt-12 mb-8 p-policy">
-                <h5 className="m-0">Booking and payment policy</h5>
+                <h5 className="m-0 text-lg font-semibold">Booking and payment policy</h5>
                 <p>
                   By clicking to proceed to payment, you understand that AAA
                   City Removalist is reserving a booking for your service. You
@@ -155,8 +155,8 @@ const Step8 = () => {
               </div>
             </div>
 
-            <div className="flex flex-col gap-4 lg:w-1/3 max-h-[580px]">
-              <div className="bg-[#EDF7FF] p-6 rounded-lg shadow-md max-h-[540px]">
+            <div className="w-full lg:w-1/3 p-4 rounded-lg">
+              <div className="w-full bg-[#EDF7FF] p-6 shadow-md rounded-lg">
                 <div className="flex justify-between items-start">
                   <h3 className="text-xl m-0 font-semibold mb-4 w-2/3 text-[#024FA3] text-[21px]">
                     Mighty Hercules Package
@@ -173,44 +173,44 @@ const Step8 = () => {
 
                 <div className="space-y-2 my-4">
                   <div className="flex justify-between">
-                    <span>Minimum Hours Work</span>
-                    <span>3 Hours</span>
+                    <span className="text-sm sm:text-base">Minimum Hours Work</span>
+                    <span className="text-sm sm:text-base">3 Hours</span>
                   </div>
                   <hr className="border-white"></hr>
                   <div className="flex justify-between">
-                    <span>Return Travel</span>
-                    <span>1 hour</span>
+                    <span className="text-sm sm:text-base">Return Travel</span>
+                    <span className="text-sm sm:text-base">1 hour</span>
                   </div>
                   <hr className="border-white"></hr>
                   <div className="flex justify-between">
-                    <span>Stair Fee (30 stairs)</span>
-                    <span>$90</span>
+                    <span className="text-sm sm:text-base">Stair Fee (30 stairs)</span>
+                    <span className="text-sm sm:text-base">$90</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Fuel Levy</span>
-                    <span>5%</span>
+                    <span className="text-sm sm:text-base">Fuel Levy</span>
+                    <span className="text-sm sm:text-base">5%</span>
                   </div>
                   <hr className="border-white"></hr>
                   <div className="flex justify-between font-semibold">
-                    <span>Total</span>
-                    <span>$810.60 incl GST</span>
+                    <span className="text-sm sm:text-base">Total</span>
+                    <span className="text-sm sm:text-base">$810.60 incl GST</span>
                   </div>
                   <div className="mt-5">
                     <h5 className="text-center text-[16px] font-semibold font-[#2A2A2A] my-5">
                       Payment required to secure booking*
                     </h5>
                     <div className="flex justify-between">
-                      <span>Deposit</span>
-                      <span>$200</span>
+                      <span className="text-sm sm:text-base">Deposit</span>
+                      <span className="text-sm sm:text-base">$200</span>
                     </div>
                     <hr className="border-white"></hr>
                     <div className="flex justify-between">
-                      <span>GST</span>
-                      <span>$20</span>
+                      <span className="text-sm sm:text-base">GST</span>
+                      <span className="text-sm sm:text-base">$20</span>
                     </div>
                     <hr className="border-white"></hr>
                     <div className="flex justify-between font-semibold">
-                      <span>Total deposit amount</span>
+                      <span className="text-sm sm:text-base">Total deposit amount</span>
                       <span className="text-red-600">$220.00</span>
                     </div>
                   </div>
@@ -227,20 +227,20 @@ const Step8 = () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-col lg:flex-row mt-10 mb-0 gap-6">
-            <div className="flex items-start gap-8">
+          <div className="flex flex-col lg:flex-row mt-10 gap-4">
+            <div className="flex items-start sm:justify-start gap-8">
               <CustomButton
                 type="button"
                 onClick={handlePrevious}
                 label="Back"
-                className="bg-[#FFF] border-[#A2B9CF] py-4 px-10 text-[#5B5B5B] hover:text-[#FFF] hover:bg-[#5B5B5B]"
+                className="bg-white border border-[#A2B9CF] py-4 px-10 text-[#5B5B5B] hover:text-white hover:bg-[#5B5B5B]"
               />
               <PayPalButton
                 layout="horizontal"
-                amount="100.00" // Example amount, should be dynamic based on your application logic
+                amount="100.00"
                 onSuccess={handlePaymentSuccess}
                 onError={handlePaymentError}
-                className="min-w-[300px]"
+                className="sm:min-w-[300px]"
               />
             </div>
           </div>
@@ -266,7 +266,7 @@ const Step8 = () => {
                     ></path>
                   </svg>
                 </div>
-                <h3 className="text-[22px] text-[#000]">
+                <h3 className="text-2xl font-semibold text-[#000]">
                   Your payment was successful!
                 </h3>
                 <p>Thank you for your purchase.</p>
@@ -295,7 +295,7 @@ const Step8 = () => {
                     ></path>
                   </svg>
                 </div>
-                <h3 className="text-[22px] text-[#000]">
+                <h3 className="text-2xl font-semibold text-[#000]">
                   Your payment was Failed!
                 </h3>
                 <p>Please Try Again.</p>
